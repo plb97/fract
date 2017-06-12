@@ -17,7 +17,7 @@ type test_cont_t struct {
 func Test_cont(t *testing.T) {
 	test := "cont"
 	var test_cont = []test_cont_t {
-		{math.Pi,[]*Fract_t{New(3,1),New(22,7),New(333,106),New(355,113),New(103993,33102),}},
+		{math.Pi,[]*Fract_t{Creer(3,1), Creer(22,7), Creer(333,106), Creer(355,113), Creer(103993,33102),}},
 	}
 	for _, v := range test_cont {
 		attendu := v.r
@@ -38,10 +38,27 @@ func Test_cont(t *testing.T) {
 		} else {
 			for i := 0; i < n; i++ {
 				if !attendu[i].Egal(obtenu[i]) {
-					t.Errorf("cont(%f,%d): [%d] attendu %v, obtenu %v",v.f,n, i, attendu[i], obtenu[i])
+					t.Errorf(test+"(%f,%d): [%d] attendu %v, obtenu %v",v.f,n, i, attendu[i], obtenu[i])
 				}
 			}
 		}
 	}
 }
 
+func Test_elmts(t *testing.T) {
+	test := "elmts"
+	f := math.Pi
+	fc := []int{3,7,15,1,292}
+	n := 5
+	p := 1e-7
+	{
+		lo := Cont_elmts(f,n,p)
+		for i, attendu := range fc {
+			obtenu := lo[i]
+			if attendu != obtenu {
+				t.Errorf(test+" : attendu %v != obtenu %v", attendu, obtenu)
+			}
+		}
+	}
+
+}

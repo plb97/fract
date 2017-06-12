@@ -14,13 +14,13 @@ func Cont_red(f float64, n int, prec float64) ([]int, []*Fract_t, float64) {
 	if 0 >= n {panic("Parametre invalide")}
 	var e, r = make([]int,0,n), make([]*Fract_t,0,n)
 	a, b := fqa.Ent(f)
-	p, ap := New(a,1), New(1,0)
+	p, ap := Creer(a,1), Creer(1,0)
 	e, r = append(e,a), append(r,p)
 	for i := 0; i < n-1 &&
-				!fqa.Egal_f(b, 0, prec) &&
-				!fqa.Egal_f(1/float64(p.d)/(float64(p.d)/b+float64(ap.d)), 0, prec); i++ {
+			!fqa.Egal_f(b, 0, prec) &&
+			!fqa.Egal_f(1/float64(p.d)/(float64(p.d)/b+float64(ap.d)), 0, prec); i++ {
 		a, b = fqa.Ent(1 / b)
-		p, ap = New(p.n*a+ap.n,p.d*a+ap.d), p
+		p, ap = Creer(p.n*a+ap.n,p.d*a+ap.d), p
 		e, r = append(e,a), append(r,p)
 	}
 	return e, r, b

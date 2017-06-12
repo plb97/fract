@@ -72,7 +72,7 @@ var (
 	p_inf = &Fract_t{+1,0}
 	nan = &Fract_t{0,0}
 ) 
-func New(n, d int) *Fract_t {
+func Creer(n, d int) *Fract_t {
 	if 0 == d {
 		if 0 < n {return p_inf}
 		if 0 > n {return m_inf}
@@ -97,7 +97,7 @@ func (r Fract_t)String() string {
 	}
 	return fmt.Sprintf("[%d%+d/%d]",e,a,r.d)
 }
-func (r *Fract_t)Value() float64 {
+func (r *Fract_t)Valeur() float64 {
 	if r.Egal(m_inf) {return math.Inf(-1)}
 	if r.Egal(p_inf) {return math.Inf(+1)}
 	if r.Egal(nan) {return math.NaN()}
@@ -126,40 +126,40 @@ func (r *Fract_t)Egal(f *Fract_t) bool {
 	return r.d == f.d && r.n == f. n
 }
 func (r *Fract_t)Add(f *Fract_t) *Fract_t {
-	return New(r.n * f.d + r.d * f.n, r.d * f.d)
+	return Creer(r.n * f.d + r.d * f.n, r.d * f.d)
 }
 func (r *Fract_t)Sub(f *Fract_t) *Fract_t {
-	return New(r.n * f.d - r.d * f.n, r.d * f.d)
+	return Creer(r.n * f.d - r.d * f.n, r.d * f.d)
 }
 func (r *Fract_t)Mul(f *Fract_t) *Fract_t {
-	return New(r.n * f.n, r.d * f.d)
+	return Creer(r.n * f.n, r.d * f.d)
 }
 func (r *Fract_t)Div(f *Fract_t) *Fract_t {
-	return New(r.n * f.d, r.d * f.n)
+	return Creer(r.n * f.d, r.d * f.n)
 }
 func (r *Fract_t)AddInt(i int) *Fract_t {
-	return New(r.n + r.d * i, r.d)
+	return Creer(r.n + r.d * i, r.d)
 }
 func (r *Fract_t)SubInt(i int) *Fract_t {
-	return New(r.n - r.d * i, r.d)
+	return Creer(r.n - r.d * i, r.d)
 }
 func (r *Fract_t)MulInt(i int) *Fract_t {
-	return New(r.n * i, r.d)
+	return Creer(r.n * i, r.d)
 }
 func (r *Fract_t)DivInt(i int) *Fract_t {
-	return New(r.n, r.d * i)
+	return Creer(r.n, r.d * i)
 }
 func Det(r *Fract_t,f *Fract_t) int {
 	return r.n * f.d - r.d * f.n
 }
 func (r *Fract_t)Med(f *Fract_t) *Fract_t {
-	return New(r.n + f.n, r.d + f.d)
+	return Creer(r.n + f.n, r.d + f.d)
 }
 //func (r *Fract_t)MedInt(i int) *Fract_t {
 //	return New(r.n + i, r.d + 1)
 //}
 
-func Equal_s(a,b []*Fract_t) bool {
+func Egal_s(a,b []*Fract_t) bool {
 	l := len(a)
 	if l != len(b) {return false}
 	for i := 0; i < l; i++ {

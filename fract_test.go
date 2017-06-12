@@ -13,7 +13,8 @@ type test_fract_new_t struct {
 	n, d int
 	f *Fract_t
 }
-func Test_fract_new(t *testing.T) {
+func Test_fract_creer(t *testing.T) {
+	test := "creer"
 	var test_fract_new = []test_fract_new_t {
 		{1,2,&Fract_t{1,2}},
 		{1,3,&Fract_t{1,3}},
@@ -25,47 +26,48 @@ func Test_fract_new(t *testing.T) {
 		{-5,0,&Fract_t{-1,0}},
 	}
 	for _, v := range test_fract_new {
-		expected := v.f
-		actual := New(v.n,v.d)
-		if !expected.Egal(actual) {
-			t.Errorf("new: expected %v, actual %v", expected, actual)
+		attendu := v.f
+		obtenu := Creer(v.n,v.d)
+		if !attendu.Egal(obtenu) {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
 		}
 	}
 }
 
-type test_fract_equal_t struct {
+type test_fract_egal_t struct {
 	a, b *Fract_t
 	c bool
 }
-func Test_fract_equal(t *testing.T) {
-	var test_fract_equal = []test_fract_equal_t {
-		{New(1,2),New(2,3),false},
-		{New(-1,2),New(2,3),false},
-		{New(2,3),New(1,2),false},
-		{New(2,3),New(-1,2),false},
-		{New(1,2),New(1,0),false},
-		{New(-1,2),New(1,0),false},
-		{New(1,0),New(1,2),false},
-		{New(1,0),New(-1,2),false},
-		{New(1,2),New(2,4),true},
-		{New(-1,2),New(2,-4),true},
-		{New(2,4),New(1,2),true},
-		{New(2,-4),New(-1,2),true},
-		{New(1,0),New(2,0),true},
-		{New(-1,0),New(-2,0),true},
-		{New(2,0),New(1,0),true},
-		{New(0,0),New(0,0),true},
-		{New(-2,0),New(-1,0),true},
-		{New(1,0),New(-2,0),false},
-		{New(-1,0),New(2,0),false},
-		{New(-2,0),New(1,0),false},
-		{New(2,0),New(-1,0),false},
+func Test_fract_egal(t *testing.T) {
+	test := "egal"
+	var test_fract_egal = []test_fract_egal_t{
+		{Creer(1,2), Creer(2,3),false},
+		{Creer(-1,2), Creer(2,3),false},
+		{Creer(2,3), Creer(1,2),false},
+		{Creer(2,3), Creer(-1,2),false},
+		{Creer(1,2), Creer(1,0),false},
+		{Creer(-1,2), Creer(1,0),false},
+		{Creer(1,0), Creer(1,2),false},
+		{Creer(1,0), Creer(-1,2),false},
+		{Creer(1,2), Creer(2,4),true},
+		{Creer(-1,2), Creer(2,-4),true},
+		{Creer(2,4), Creer(1,2),true},
+		{Creer(2,-4), Creer(-1,2),true},
+		{Creer(1,0), Creer(2,0),true},
+		{Creer(-1,0), Creer(-2,0),true},
+		{Creer(2,0), Creer(1,0),true},
+		{Creer(0,0), Creer(0,0),true},
+		{Creer(-2,0), Creer(-1,0),true},
+		{Creer(1,0), Creer(-2,0),false},
+		{Creer(-1,0), Creer(2,0),false},
+		{Creer(-2,0), Creer(1,0),false},
+		{Creer(2,0), Creer(-1,0),false},
 	}
-	for _, v := range test_fract_equal {
-		expected := v.c
-		actual := v.a.Egal(v.b)
-		if expected != actual {
-			t.Errorf("equal: expected %v, actual %v", expected, actual)
+	for _, v := range test_fract_egal {
+		attendu := v.c
+		obtenu := v.a.Egal(v.b)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
 		}
 	}
 }
@@ -75,52 +77,53 @@ type test_fract_compare_t struct {
 	c Fract_compare_t
 }
 func Test_fract_compare(t *testing.T) {
+	test := "compare"
 	var test_fract_compare = []test_fract_compare_t {
-		{New(1,2),New(2,3),MINOR},
-		{New(-1,2),New(2,3),MINOR},
-		{New(2,3),New(1,2),MAJOR},
-		{New(2,3),New(-1,2),MAJOR},
+		{Creer(1,2), Creer(2,3),MINOR},
+		{Creer(-1,2), Creer(2,3),LT}, // LT = MINOR
+		{Creer(2,3), Creer(1,2),MAJOR},
+		{Creer(2,3), Creer(-1,2),MAJOR},
 
-		{New(1,2),New(2,4),AEQUAL},
-		{New(-1,2),New(2,-4),AEQUAL},
-		{New(2,4),New(1,2),AEQUAL},
-		{New(2,-4),New(-1,2),AEQUAL},
+		{Creer(1,2), Creer(2,4),EQ}, // EQ = AEQUAL
+		{Creer(-1,2), Creer(2,-4),AEQUAL},
+		{Creer(2,4), Creer(1,2),AEQUAL},
+		{Creer(2,-4), Creer(-1,2),AEQUAL},
 
-		{New(1,0),New(2,0),AEQUAL},
-		{New(-1,0),New(-2,0),AEQUAL},
-		{New(2,0),New(1,0),AEQUAL},
-		{New(-2,0),New(-1,0),AEQUAL},
-		{New(0,0),New(0,0),AEQUAL},
+		{Creer(1,0), Creer(2,0),AEQUAL},
+		{Creer(-1,0), Creer(-2,0),AEQUAL},
+		{Creer(2,0), Creer(1,0),AEQUAL},
+		{Creer(-2,0), Creer(-1,0),EGAL}, // EGAL = AEQUAL
+		{Creer(0,0), Creer(0,0),AEQUAL},
 
-		{New(1,2),New(1,0),MINOR},
-		{New(-1,2),New(1,0),MINOR},
-		{New(1,0),New(1,2),MAJOR},
-		{New(1,0),New(-1,2),MAJOR},
+		{Creer(1,2), Creer(1,0),MINOR},
+		{Creer(-1,2), Creer(1,0),PLUS_PETIT}, // PLUS_PETIT = MINOR
+		{Creer(1,0), Creer(1,2),GT}, // GT = MAJOR
+		{Creer(1,0), Creer(-1,2),PLUS_GRAND}, // PLUS_GRAND = MAJOR
 
-		{New(1,0),New(-2,0),MAJOR},
-		{New(-1,0),New(2,0),MINOR},
-		{New(-2,0),New(1,0),MINOR},
-		{New(2,0),New(-1,0),MAJOR},
+		{Creer(1,0), Creer(-2,0),MAJOR},
+		{Creer(-1,0), Creer(2,0),MINOR},
+		{Creer(-2,0), Creer(1,0),MINOR},
+		{Creer(2,0), Creer(-1,0),MAJOR},
 
-		{New(1,2),New(0,0),MAJOR},
-		{New(-1,2),New(0,0),MINOR},
-		{New(2,3),New(0,0),MAJOR},
-		{New(-2,3),New(0,0),MINOR},
-		{New(0,0),New(1,2),MINOR},
-		{New(0,0),New(-1,2),MAJOR},
-		{New(0,0),New(2,3),MINOR},
-		{New(0,0),New(-2,3),MAJOR},
+		{Creer(1,2), Creer(0,0),MAJOR},
+		{Creer(-1,2), Creer(0,0),MINOR},
+		{Creer(2,3), Creer(0,0),MAJOR},
+		{Creer(-2,3), Creer(0,0),MINOR},
+		{Creer(0,0), Creer(1,2),MINOR},
+		{Creer(0,0), Creer(-1,2),MAJOR},
+		{Creer(0,0), Creer(2,3),MINOR},
+		{Creer(0,0), Creer(-2,3),MAJOR},
 
-		{New(1,0),New(0,0),MAJOR},
-		{New(-1,0),New(0,0),MINOR},
-		{New(0,0),New(1,0),MINOR},
-		{New(0,0),New(-1,0),MAJOR},
+		{Creer(1,0), Creer(0,0),MAJOR},
+		{Creer(-1,0), Creer(0,0),MINOR},
+		{Creer(0,0), Creer(1,0),MINOR},
+		{Creer(0,0), Creer(-1,0),MAJOR},
 	}
 	for _, v := range test_fract_compare {
-		expected := v.c
-		actual := v.a.Compare(v.b)
-		if expected != actual {
-			t.Errorf("compare(%v %v): expected %v, actual %v", v.a, v.b, expected, actual)
+		attendu := v.c
+		obtenu := v.a.Compare(v.b)
+		if attendu != obtenu {
+			t.Errorf(test+"(%v %v): attendu %v, obtenu %v", v.a, v.b, attendu, obtenu)
 		}
 	}
 }
@@ -131,93 +134,116 @@ type test_fract_ope_t struct {
 
 func Test_fract_add(t *testing.T) {
 	var test_fract_add = []test_fract_ope_t {
-		{New(1,2),New(2,3),New(7,6)},
-		{New(-1,2),New(2,3),New(1,6)},
-		{New(2,3),New(1,2),New(7,6)},
-		{New(2,3),New(-1,2),New(1,6)},
+		{Creer(1,2), Creer(2,3), Creer(7,6)},
+		{Creer(-1,2), Creer(2,3), Creer(1,6)},
+		{Creer(2,3), Creer(1,2), Creer(7,6)},
+		{Creer(2,3), Creer(-1,2), Creer(1,6)},
 
-		{New(1,0),New(1,2),New(1,0)},
-		{New(1,0),New(-1,2),New(1,0)},
-		{New(1,2),New(1,0),New(1,0)},
-		{New(-1,2),New(1,0),New(1,0)},
+		{Creer(1,0), Creer(1,2), Creer(1,0)},
+		{Creer(1,0), Creer(-1,2), Creer(1,0)},
+		{Creer(1,2), Creer(1,0), Creer(1,0)},
+		{Creer(-1,2), Creer(1,0), Creer(1,0)},
 
-		{New(-1,0),New(1,2),New(-1,0)},
-		{New(-1,0),New(-1,2),New(-1,0)},
-		{New(1,2),New(-1,0),New(-1,0)},
-		{New(-1,2),New(-1,0),New(-1,0)},
+		{Creer(-1,0), Creer(1,2), Creer(-1,0)},
+		{Creer(-1,0), Creer(-1,2), Creer(-1,0)},
+		{Creer(1,2), Creer(-1,0), Creer(-1,0)},
+		{Creer(-1,2), Creer(-1,0), Creer(-1,0)},
 
-		{New(0,0),New(1,2),New(0,0)},
-		{New(0,0),New(-1,2),New(0,0)},
-		{New(1,2),New(0,0),New(0,0)},
-		{New(-1,2),New(0,0),New(0,0)},
+		{Creer(0,0), Creer(1,2), Creer(0,0)},
+		{Creer(0,0), Creer(-1,2), Creer(0,0)},
+		{Creer(1,2), Creer(0,0), Creer(0,0)},
+		{Creer(-1,2), Creer(0,0), Creer(0,0)},
 	}
 	for _, v := range test_fract_add {
-		expected := v.c
-		actual := v.a.Add(v.b)
-		if !expected.Egal(actual) {
-			t.Errorf("add(%v %v): expected %v, actual %v",v.a,v.b, expected, actual)
+		attendu := v.c
+		obtenu := v.a.Add(v.b)
+		if !attendu.Egal(obtenu) {
+			t.Errorf("add(%v %v): attendu %v, obtenu %v",v.a,v.b, attendu, obtenu)
 		}
 	}
 }
 
 func Test_fract_sub(t *testing.T) {
 	var test_fract_sub = []test_fract_ope_t {
-		{New(1,2),New(2,3),New(-1,6)},
-		{New(-1,2),New(2,3),New(-7,6)},
-		{New(2,3),New(1,2),New(1,6)},
-		{New(2,3),New(-1,2),New(7,6)},
+		{Creer(1,2), Creer(2,3), Creer(-1,6)},
+		{Creer(-1,2), Creer(2,3), Creer(-7,6)},
+		{Creer(2,3), Creer(1,2), Creer(1,6)},
+		{Creer(2,3), Creer(-1,2), Creer(7,6)},
 
-		{New(1,0),New(1,2),New(1,0)},
-		{New(1,0),New(-1,2),New(1,0)},
-		{New(1,2),New(1,0),New(-1,0)},
-		{New(-1,2),New(1,0),New(-1,0)},
+		{Creer(1,0), Creer(1,2), Creer(1,0)},
+		{Creer(1,0), Creer(-1,2), Creer(1,0)},
+		{Creer(1,2), Creer(1,0), Creer(-1,0)},
+		{Creer(-1,2), Creer(1,0), Creer(-1,0)},
 
-		{New(-1,0),New(1,2),New(-1,0)},
-		{New(-1,0),New(-1,2),New(-1,0)},
-		{New(1,2),New(-1,0),New(1,0)},
-		{New(-1,2),New(-1,0),New(1,0)},
+		{Creer(-1,0), Creer(1,2), Creer(-1,0)},
+		{Creer(-1,0), Creer(-1,2), Creer(-1,0)},
+		{Creer(1,2), Creer(-1,0), Creer(1,0)},
+		{Creer(-1,2), Creer(-1,0), Creer(1,0)},
 
-		{New(0,0),New(1,2),New(0,0)},
-		{New(0,0),New(-1,2),New(0,0)},
-		{New(1,2),New(0,0),New(0,0)},
-		{New(-1,2),New(0,0),New(0,0)},
+		{Creer(0,0), Creer(1,2), Creer(0,0)},
+		{Creer(0,0), Creer(-1,2), Creer(0,0)},
+		{Creer(1,2), Creer(0,0), Creer(0,0)},
+		{Creer(-1,2), Creer(0,0), Creer(0,0)},
 	}
 	for _, v := range test_fract_sub {
-		expected := v.c
-		actual := v.a.Sub(v.b)
-		if !expected.Egal(actual) {
-			t.Errorf("sub(%v %v): expected %v, actual %v",v.a,v.b, expected, actual)
+		attendu := v.c
+		obtenu := v.a.Sub(v.b)
+		if !attendu.Egal(obtenu) {
+			t.Errorf("sub(%v %v): attendu %v, obtenu %v",v.a,v.b, attendu, obtenu)
 		}
 	}
 }
 
 func Test_fract_mul(t *testing.T) {
+	test := "mul"
 	var test_fract_mul = []test_fract_ope_t {
-		{New(1,2),New(2,3),New(1,3)},
-		{New(-1,2),New(2,3),New(-1,3)},
-		{New(2,3),New(1,2),New(1,3)},
-		{New(2,3),New(-1,2),New(-1,3)},
+		{Creer(1,2), Creer(2,3), Creer(1,3)},
+		{Creer(-1,2), Creer(2,3), Creer(-1,3)},
+		{Creer(2,3), Creer(1,2), Creer(1,3)},
+		{Creer(2,3), Creer(-1,2), Creer(-1,3)},
 
-		{New(1,0),New(1,2),New(1,0)},
-		{New(1,0),New(-1,2),New(-1,0)},
-		{New(1,2),New(1,0),New(1,0)},
-		{New(-1,2),New(1,0),New(-1,0)},
+		{Creer(1,0), Creer(1,2), Creer(1,0)},
+		{Creer(1,0), Creer(-1,2), Creer(-1,0)},
+		{Creer(1,2), Creer(1,0), Creer(1,0)},
+		{Creer(-1,2), Creer(1,0), Creer(-1,0)},
 
-		{New(-1,0),New(1,2),New(-1,0)},
-		{New(-1,0),New(-1,2),New(1,0)},
-		{New(1,2),New(-1,0),New(-1,0)},
-		{New(-1,2),New(-1,0),New(1,0)},
+		{Creer(-1,0), Creer(1,2), Creer(-1,0)},
+		{Creer(-1,0), Creer(-1,2), Creer(1,0)},
+		{Creer(1,2), Creer(-1,0), Creer(-1,0)},
+		{Creer(-1,2), Creer(-1,0), Creer(1,0)},
 
-		{New(0,0),New(1,2),New(0,0)},
-		{New(0,0),New(-1,2),New(0,0)},
-		{New(1,2),New(0,0),New(0,0)},
-		{New(-1,2),New(0,0),New(0,0)},
+		{Creer(0,0), Creer(1,2), Creer(0,0)},
+		{Creer(0,0), Creer(-1,2), Creer(0,0)},
+		{Creer(1,2), Creer(0,0), Creer(0,0)},
+		{Creer(-1,2), Creer(0,0), Creer(0,0)},
 	}
 	for _, v := range test_fract_mul {
-		expected := v.c
-		actual := v.a.Mul(v.b)
-		if !expected.Egal(actual) {
-			t.Errorf("mul(%v %v): expected %v, actual %v",v.a,v.b, expected, actual)
+		attendu := v.c
+		obtenu := v.a.Mul(v.b)
+		if !attendu.Egal(obtenu) {
+			t.Errorf(test+"(%v %v): attendu %v, obtenu %v",v.a,v.b, attendu, obtenu)
 		}
 	}
 }
+
+func Test_fract_pgcd(t *testing.T) {
+	test := "pgcd"
+	p := 12
+	n, d := 51*p, 2*p
+	{
+		attendu := p
+		obtenu := pgcd(n,d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := p
+		obtenu := pgcd2(n,d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+
+}
+
