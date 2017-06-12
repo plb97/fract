@@ -1,12 +1,17 @@
+// Copyright (c) 2017 plb97.
+// All rights reserved.
+// Use of this source code is governed by a CeCILL-B_V1
+// (BSD-style) license that can be found in the
+// LICENCE (French) or LICENSE (English) file.
 package fract
 
 import (
-	"util"
+	"github.com/plb97/fqa"
 )
 
 // http://mapage.noos.fr/r.ferreol/atelecharger/textes/brocot.pdf
 func Brocot(n int) []*Fract_t {
-	if 0 > n {panic("Invalid n")}
+	if 0 > n {panic("Parametre invalide")}
 	u := *Brocot_nums(uint(n))
 	m := len(u) - 1
 	r := make([]*Fract_t,m+1)
@@ -31,10 +36,10 @@ func Brocot_nums(n uint) *[]int {
 }
 
 func Brocot_approx(f, prec float64) ([2]*Fract_t) {
-	if 0 > prec {panic("Invalid prec")}
-	e, r := util.Ent(f)
+	if 0 > prec {panic("Precision invalide")}
+	e, r := fqa.Ent(f)
 	t := [2]*Fract_t{New(0,1),New(1,1),}
-	for i := 0; !util.Equal_f(t[1].Value(),t[0].Value(), prec); i++ {
+	for i := 0; !fqa.Egal_f(t[1].Value(),t[0].Value(), prec); i++ {
 		m := t[0].Med(t[1])
 		if r < m.Value() {t[1] = m}
 		if r > m.Value() {t[0] = m}

@@ -1,9 +1,14 @@
+// Copyright (c) 2017 plb97.
+// All rights reserved.
+// Use of this source code is governed by a CeCILL-B_V1
+// (BSD-style) license that can be found in the
+// LICENCE (French) or LICENSE (English) file.
 package fract
 
 import (
 	"fmt"
-	"util"
 	"math"
+	"github.com/plb97/fqa"
 )
 
 func pgcd(a, b int) int {
@@ -86,36 +91,36 @@ func (r Fract_t)String() string {
 	if 0 == r.d {
 		return fmt.Sprintf("[%d/%d]",r.n,r.d)
 	}
-	e, a := util.Divent(r.n, r.d)
+	e, a := fqa.Divent(r.n, r.d)
 	if 0 == e {
 		return fmt.Sprintf("[%d/%d]",a,r.d)
 	}
 	return fmt.Sprintf("[%d%+d/%d]",e,a,r.d)
 }
 func (r *Fract_t)Value() float64 {
-	if r.Equal(m_inf) {return math.Inf(-1)}
-	if r.Equal(p_inf) {return math.Inf(+1)}
-	if r.Equal(nan) {return math.NaN()}
+	if r.Egal(m_inf) {return math.Inf(-1)}
+	if r.Egal(p_inf) {return math.Inf(+1)}
+	if r.Egal(nan) {return math.NaN()}
 	return float64(r.n) / float64(r.d)
 }
 func (r *Fract_t)Elmt() (int, int) {
 	return r.n, r.d
 }
 func (r *Fract_t)Compare(f *Fract_t) Fract_compare_t {
-	if r.Equal(f) {return AEQUAL}
-	if m_inf.Equal(r) || p_inf.Equal(f) {return MINOR}
-	if p_inf.Equal(r) || m_inf.Equal(f) {return MAJOR}
+	if r.Egal(f) {return AEQUAL}
+	if m_inf.Egal(r) || p_inf.Egal(f) {return MINOR}
+	if p_inf.Egal(r) || m_inf.Egal(f) {return MAJOR}
 	d := r.n * f.d - r.d * f.n
-	if nan.Equal(r) {
+	if nan.Egal(r) {
 		d = -f.n
-	} else if nan.Equal(f) {
+	} else if nan.Egal(f) {
 		d = r.n
 	}
 	if 0 > d {return MINOR}
 	if 0 < d {return MAJOR}
 	return AEQUAL
 }
-func (r *Fract_t)Equal(f *Fract_t) bool {
+func (r *Fract_t)Egal(f *Fract_t) bool {
 	// les fractions son reduites 
 	// et normalisees (+inf=1/0 ou -inf=-1/0) donc...
 	return r.d == f.d && r.n == f. n
@@ -158,7 +163,7 @@ func Equal_s(a,b []*Fract_t) bool {
 	l := len(a)
 	if l != len(b) {return false}
 	for i := 0; i < l; i++ {
-		if !a[i].Equal(b[i]) {return false}
+		if !a[i].Egal(b[i]) {return false}
 	}
 	return true
 }

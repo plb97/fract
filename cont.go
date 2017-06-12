@@ -1,20 +1,25 @@
+// Copyright (c) 2017 plb97.
+// All rights reserved.
+// Use of this source code is governed by a CeCILL-B_V1
+// (BSD-style) license that can be found in the
+// LICENCE (French) or LICENSE (English) file.
 package fract
 
 import (
-	"util"
+	"github.com/plb97/fqa"
 )
 
 func Cont_red(f float64, n int, prec float64) ([]int, []*Fract_t, float64) {
-	if 0 >= prec {panic("Invalid prec")}
-	if 0 >= n {panic("Invalid n")}
+	if 0 >= prec {panic("Precision invalide")}
+	if 0 >= n {panic("Parametre invalide")}
 	var e, r = make([]int,0,n), make([]*Fract_t,0,n)
-	a, b := util.Ent(f)
+	a, b := fqa.Ent(f)
 	p, ap := New(a,1), New(1,0)
 	e, r = append(e,a), append(r,p)
 	for i := 0; i < n-1 &&
-				!util.Equal_f(b, 0, prec) &&
-				!util.Equal_f(1/float64(p.d)/(float64(p.d)/b+float64(ap.d)), 0, prec); i++ {
-		a, b = util.Ent(1 / b)
+				!fqa.Egal_f(b, 0, prec) &&
+				!fqa.Egal_f(1/float64(p.d)/(float64(p.d)/b+float64(ap.d)), 0, prec); i++ {
+		a, b = fqa.Ent(1 / b)
 		p, ap = New(p.n*a+ap.n,p.d*a+ap.d), p
 		e, r = append(e,a), append(r,p)
 	}

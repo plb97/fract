@@ -1,3 +1,8 @@
+// Copyright (c) 2017 plb97.
+// All rights reserved.
+// Use of this source code is governed by a CeCILL-B_V1
+// (BSD-style) license that can be found in the
+// LICENCE (French) or LICENSE (English) file.
 package fract
 
 import (
@@ -22,7 +27,7 @@ func Test_fract_new(t *testing.T) {
 	for _, v := range test_fract_new {
 		expected := v.f
 		actual := New(v.n,v.d)
-		if !expected.Equal(actual) {
+		if !expected.Egal(actual) {
 			t.Errorf("new: expected %v, actual %v", expected, actual)
 		}
 	}
@@ -58,7 +63,7 @@ func Test_fract_equal(t *testing.T) {
 	}
 	for _, v := range test_fract_equal {
 		expected := v.c
-		actual := v.a.Equal(v.b)
+		actual := v.a.Egal(v.b)
 		if expected != actual {
 			t.Errorf("equal: expected %v, actual %v", expected, actual)
 		}
@@ -149,7 +154,7 @@ func Test_fract_add(t *testing.T) {
 	for _, v := range test_fract_add {
 		expected := v.c
 		actual := v.a.Add(v.b)
-		if !expected.Equal(actual) {
+		if !expected.Egal(actual) {
 			t.Errorf("add(%v %v): expected %v, actual %v",v.a,v.b, expected, actual)
 		}
 	}
@@ -180,7 +185,7 @@ func Test_fract_sub(t *testing.T) {
 	for _, v := range test_fract_sub {
 		expected := v.c
 		actual := v.a.Sub(v.b)
-		if !expected.Equal(actual) {
+		if !expected.Egal(actual) {
 			t.Errorf("sub(%v %v): expected %v, actual %v",v.a,v.b, expected, actual)
 		}
 	}
@@ -211,7 +216,7 @@ func Test_fract_mul(t *testing.T) {
 	for _, v := range test_fract_mul {
 		expected := v.c
 		actual := v.a.Mul(v.b)
-		if !expected.Equal(actual) {
+		if !expected.Egal(actual) {
 			t.Errorf("mul(%v %v): expected %v, actual %v",v.a,v.b, expected, actual)
 		}
 	}
