@@ -9,10 +9,11 @@ import (
 	"github.com/plb97/fqa"
 )
 // http://www-irma.u-strasbg.fr/~richez/ressources/recherche/memoire_fractions_continues.pdf
-// 'Cond_red' ('e' est la reduite - suite finie - de la fraction continue) retourne :
+// 'Cond_red' retourne :
 // le tableau des elements('n' au plus depend de 'prec') de la suite continue
 // le tableau des elements('n' au plus depend de 'prec') des fractions continues correspondantes
 // la valeur approchee a la precision 'prec' au plus (depend de la valeur 'n') de la partie fractionnaire de 'f'
+// 'e' est la reduite (suite finie) de la fraction continue
 func Cont_red(f float64, n int, prec float64) ([]int, []*Fract_t, float64) {
 	if 0 >= prec {panic("Precision invalide")}
 	if 0 >= n {panic("Parametre invalide")}
