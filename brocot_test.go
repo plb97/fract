@@ -8,6 +8,7 @@ package fract
 import (
     "testing"
 	"math"
+	"reflect"
 )
 
 type test_brocot_t struct {
@@ -63,7 +64,19 @@ func Test_brocot_approx(t *testing.T) {
 		attendu := -1
 		obtenu := Det(a[0],a[1]) // le determinant de deux termes consecutifs est egal a '-1'
 		if attendu != obtenu {
-			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+			t.Errorf(test+" : attendu %v != obtenu %v", attendu, obtenu)
+		}
+	}
+}
+
+func Test_brocot_nums(t *testing.T) {
+	test := "nums"
+	la := [][]int { 0:{0,1}, 1:{0,1,1}, 2:{0,1,1,2,1}, 3:{0,1,1,2,1,3,2,3,1},4:{0,1,1,2,1,3,2,3,1,4,3,5,2,5,3,4,1}}
+	for i := 0; i < len(la); i++ {
+		attendu := la[i]
+		obtenu := *Brocot_nums(i)
+		if !reflect.DeepEqual(attendu,obtenu) {
+			t.Errorf(test+" : attendu %v != obtenu %v", attendu, obtenu)
 		}
 	}
 }

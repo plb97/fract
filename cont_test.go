@@ -8,6 +8,7 @@ package fract
 import (
 	"testing"
 	"math"
+	"github.com/plb97/fqa"
 )
 
 type test_cont_t struct {
@@ -22,21 +23,23 @@ func Test_cont(t *testing.T) {
 	for _, v := range test_cont {
 		attendu := v.r
 		n := len(attendu)
-		obtenu := Cont(v.f,n,1e-20)
-		if n != len(obtenu) {
-			t.Errorf(test+"(%f,%d): attendu n %v, obtenu %v",v.f,n,n, len(obtenu))
+		p := 1e-20
+		obtenu := Cont(v.f,n,p)
+		if n < len(obtenu) {
+			t.Errorf(test+"(%f,%d): attendu n %v >= obtenu %v",v.f,n,n, len(obtenu))
 		} else {
-			for i := 0; i < n; i++ {
+			for i := 0; i < len(obtenu); i++ {
 				if !attendu[i].Egal(obtenu[i]) {
 					t.Errorf(test+"(%f,%d): [%d] attendu %v, obtenu %v",v.f,n, i, attendu[i], obtenu[i])
 				}
 			}
 		}
-		obtenu = Cont(v.f,10,1e-9)
-		if n != len(obtenu) {
-			t.Errorf(test+"(%f,%d): attendu n %v, obtenu %v",v.f,n,n, len(obtenu))
+		p = 1e-9
+		obtenu = Cont(v.f,n,p)
+		if n < len(obtenu) {
+			t.Errorf(test+"(%f,%d): attendu n %v >= obtenu %v",v.f,n,n, len(obtenu))
 		} else {
-			for i := 0; i < n; i++ {
+			for i := 0; i < len(obtenu); i++ {
 				if !attendu[i].Egal(obtenu[i]) {
 					t.Errorf(test+"(%f,%d): [%d] attendu %v, obtenu %v",v.f,n, i, attendu[i], obtenu[i])
 				}
@@ -61,4 +64,38 @@ func Test_elmts(t *testing.T) {
 		}
 	}
 
+}
+
+func Test_red(t *testing.T) {
+	test := "red"
+	f := math.Phi
+	li := []int{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+	n := len(li) // suffisamment grand
+	p := 1e-6 // precision souhaitee (pas trop grande)
+	e,r,b := Cont_red(f,n,p)
+	{
+		if len(li) < len(e) {
+			t.Errorf(test+" : attendu %v >= obtenu %v", len(li), len(e))
+		}
+		for i, obtenu := range e {
+			attendu := li[i]
+			if attendu != obtenu {
+				t.Errorf(test+" : attendu %v != obtenu %v", attendu, obtenu)
+			}
+		}
+	}
+	{
+		attendu := f - 1
+		obtenu := b
+		if !fqa.Egal_f(obtenu,attendu,p) {
+			t.Errorf(test+" : attendu %v != obtenu %v prec=%v ecart=%v", attendu, obtenu,p,obtenu - attendu)
+		}
+	}
+	{
+		attendu := f
+		obtenu := r[len(r)-1].Valeur()
+		if !fqa.Egal_f(obtenu,attendu,p) {
+			t.Errorf(test+" : attendu %v != obtenu %v prec=%v ecart=%v", attendu, obtenu,p,obtenu - attendu)
+		}
+	}
 }
