@@ -9,7 +9,7 @@ import (
 	"github.com/plb97/fqa"
 )
 // http://www-irma.u-strasbg.fr/~richez/ressources/recherche/memoire_fractions_continues.pdf
-// 'Cond_red' retourne :
+// 'Cond_red' ('e' est la reduite - suite finie - de la fraction continue) retourne :
 // le tableau des elements('n' au plus depend de 'prec') de la suite continue
 // le tableau des elements('n' au plus depend de 'prec') des fractions continues correspondantes
 // la valeur approchee a la precision 'prec' au plus (depend de la valeur 'n') de la partie fractionnaire de 'f'
