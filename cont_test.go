@@ -72,7 +72,7 @@ func Test_red(t *testing.T) {
 	li := []int{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	n := len(li) // suffisamment grand
 	p := 1e-6 // precision souhaitee (pas trop grande)
-	e,r,b := Cont_red(f,n,p)
+	e,r,b,c,d := Cont_red(f,n,p)
 	{
 		if len(li) < len(e) {
 			t.Errorf(test+" : attendu %v >= obtenu %v", len(li), len(e))
@@ -96,6 +96,20 @@ func Test_red(t *testing.T) {
 		obtenu := r[len(r)-1].Valeur()
 		if !fqa.Egal_f(obtenu,attendu,p) {
 			t.Errorf(test+" : attendu %v != obtenu %v prec=%v ecart=%v", attendu, obtenu,p,obtenu - attendu)
+		}
+	}
+	{
+		attendu := 1
+		obtenu := c
+		if attendu != obtenu {
+			t.Errorf(test + " : attendu %v != obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := p
+		obtenu := d
+		if obtenu > attendu {
+			t.Errorf(test + " : attendu %v < obtenu %v", attendu, obtenu)
 		}
 	}
 }
