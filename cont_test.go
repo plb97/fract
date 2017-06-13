@@ -28,7 +28,7 @@ func Test_cont(t *testing.T) {
 		if n < len(obtenu) {
 			t.Errorf(test+"(%f,%d): attendu n %v >= obtenu %v",v.f,n,n, len(obtenu))
 		} else {
-			for i := 0; i < len(obtenu); i++ {
+			for i := range obtenu {
 				if !attendu[i].Egal(obtenu[i]) {
 					t.Errorf(test+"(%f,%d): [%d] attendu %v, obtenu %v",v.f,n, i, attendu[i], obtenu[i])
 				}
