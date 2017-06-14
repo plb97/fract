@@ -15,6 +15,7 @@ const prec_min = 1e-18
 
 var PGCD = pgcd1
 
+// calcul du 'pgcd' par division
 func pgcd1(a, b int) int { // le pgcd est toujours > 0
 	if 0 > a { a = -a }
 	if 0 > b { b = -b }
@@ -30,6 +31,7 @@ func pgcd1(a, b int) int { // le pgcd est toujours > 0
 	}
 	return b
 }
+// calcul du 'pgcd' par soustraction
 func pgcd2(a, b int) int { // le pgcd est toujours > 0
 	if 0 > a { a = -a }
 	if 0 > b { b = -b }
@@ -50,11 +52,12 @@ func pgcd2(a, b int) int { // le pgcd est toujours > 0
 	return b
 }
 
+// differents resultats possibles d'une comparaison (<, ==, >)
 type Fract_compare_t int
 const (
-	MINOR Fract_compare_t = iota - 1
-	AEQUAL
-	MAJOR
+	MINOR Fract_compare_t = iota - 1 // <
+	AEQUAL                           // ==
+	MAJOR                            // >
 	
 	LT = MINOR
 	EQ = AEQUAL
@@ -74,7 +77,7 @@ var (
 	p_inf = &Fract_t{+1,0} // + l'infini
 	nan = &Fract_t{0,0} // inderteminee
 )
-// creation d'une fraction a partir du numerateur et de denominateur
+// creation d'une fraction a partir d'un numerateur et d'un denominateur
 func Creer(n, d int) *Fract_t {
 	if 0 == d {
 		if 0 < n {return p_inf}
@@ -101,7 +104,7 @@ func (r Fract_t)String() string {
 	}
 	return fmt.Sprintf("[%d%+d/%d]",e,a,r.d)
 }
-// valeur flottante d'une fraction
+// valeur (flot64) d'une fraction
 func (r *Fract_t)Valeur() float64 {
 	if r.Egal(m_inf) {return math.Inf(-1)}
 	if r.Egal(p_inf) {return math.Inf(+1)}
@@ -112,7 +115,7 @@ func (r *Fract_t)Valeur() float64 {
 func (r *Fract_t)Elmt() (int, int) {
 	return r.n, r.d
 }
-// comparaison d'une fraction
+// comparaison avec une fraction
 func (r *Fract_t)Compare(f *Fract_t) Fract_compare_t {
 	if r.Egal(f) {return AEQUAL}
 	if m_inf.Egal(r) || p_inf.Egal(f) {return MINOR}
@@ -127,7 +130,7 @@ func (r *Fract_t)Compare(f *Fract_t) Fract_compare_t {
 	if 0 < d {return MAJOR}
 	return AEQUAL
 }
-// verification de l'egalite d'une fraction
+// verification de l'egalite avec une fraction
 func (r *Fract_t)Egal(f *Fract_t) bool {
 	// les fractions son reduites 
 	// et normalisees (+inf=1/0 ou -inf=-1/0) donc...

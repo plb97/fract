@@ -119,14 +119,14 @@ func Test_red(t *testing.T) {
 		attendu := f
 		obtenu := e[len(e)-1].Valeur()
 		if !fqa.Egal_f(obtenu,attendu,p) {
-			t.Errorf(test+" : attendu %v != obtenu %v prec=%v ecart=%v", attendu, obtenu, p, obtenu - attendu)
+			t.Errorf(test+" : attendu %v != obtenu %v prec=%v ecart=%v",attendu,obtenu,p,obtenu - attendu)
 		}
 	}
 	{
 		attendu := f
 		obtenu := e[len(e)-1].Valeur()
 		if !fqa.Egal_f(obtenu,attendu,p) {
-			t.Errorf(test+" : attendu %v != obtenu %v prec=%v ecart=%v", attendu, obtenu,p,obtenu - attendu)
+			t.Errorf(test+" : attendu %v != obtenu %v prec=%v ecart=%v",attendu,obtenu,p,obtenu - attendu)
 		}
 	}
 	{

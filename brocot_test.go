@@ -21,8 +21,11 @@ func Test_brocot(t *testing.T) {
 		{0,[]*Fract_t{Creer(0,1), Creer(1,0)}},
 		{1,[]*Fract_t{Creer(0,1), Creer(1,1), Creer(1,0)}},
 		{2,[]*Fract_t{Creer(0,1), Creer(1,2), Creer(1,1), Creer(2,1), Creer(1,0)}},
-		{3,[]*Fract_t{Creer(0,1), Creer(1,3), Creer(1,2), Creer(2,3), Creer(1,1), Creer(3,2), Creer(2,1), Creer(3,1), Creer(1,0)}},
-		{4,[]*Fract_t{Creer(0,1), Creer(1,4), Creer(1,3), Creer(2,5), Creer(1,2), Creer(3,5), Creer(2,3), Creer(3,4), Creer(1,1), Creer(4,3), Creer(3,2), Creer(5,3), Creer(2,1), Creer(5,2), Creer(3,1), Creer(4,1), Creer(1,0)}},
+		{3,[]*Fract_t{Creer(0,1), Creer(1,3), Creer(1,2), Creer(2,3), Creer(1,1), Creer(3,2), Creer(2,1),
+			Creer(3,1), Creer(1,0)}},
+		{4,[]*Fract_t{Creer(0,1), Creer(1,4), Creer(1,3), Creer(2,5), Creer(1,2), Creer(3,5), Creer(2,3),
+			Creer(3,4), Creer(1,1), Creer(4,3), Creer(3,2), Creer(5,3), Creer(2,1), Creer(5,2), Creer(3,1),
+			Creer(4,1), Creer(1,0)}},
 	}
 	for _, v := range test_brocot {
 		attendu := v.f
@@ -43,7 +46,7 @@ func Test_brocot_approx(t *testing.T) {
 		obtenu := a[0].Valeur()
 		ecart := obtenu - attendu
 		if ecart < -p || p < ecart {
-			t.Errorf(test+" : precision=%.4f ecart=%.5f attendu %.4f, obtenu %.4f",p, ecart , attendu, obtenu)
+			t.Errorf(test+" : precision=%.4f ecart=%.5f attendu %.4f, obtenu %.4f",p,ecart,attendu,obtenu)
 		}
 	}
 	{
@@ -51,7 +54,7 @@ func Test_brocot_approx(t *testing.T) {
 		obtenu := a[1].Valeur()
 		ecart := obtenu - attendu
 		if ecart < -p || p < ecart {
-			t.Errorf(test+" : precision=%.4f ecart=%.5f attendu %.4f, obtenu %.4f",p, ecart , attendu, obtenu)
+			t.Errorf(test+" : precision=%.4f ecart=%.5f attendu %.4f, obtenu %.4f",p,ecart,attendu,obtenu)
 		}
 	}
 	{

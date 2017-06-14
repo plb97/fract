@@ -40,8 +40,10 @@ func Brocot_approx(f, prec float64) ([2]*Fract_t) {
 	if prec_min > prec {panic("Precision invalide")} // 'prec_min' est empirique
 	e, r := fqa.Ent(f) // 'e' partie entiere, 'r' reste (0 <= 'r' < 1)
 	t := [2]*Fract_t{Creer(0,1), Creer(1,1),} // initialiser les fractions d'encadrement (0/1 et 1/1)
-	for i := 0; !fqa.Egal_f(t[1].Valeur(),t[0].Valeur(), prec); i++ {  // continuer tant que la precision n'est pas suffisante
-		m := t[0].Med(t[1]) // calculer la fraction mediane (numerateur = somme des numerateurs, denominateur = somme des denominateurs)
+	for i := 0; !fqa.Egal_f(t[1].Valeur(),t[0].Valeur(), prec); i++ {  // bloucler tant que la precision
+		                                                           // n'est pas suffisante
+		m := t[0].Med(t[1]) // calculer la fraction mediane
+		                    // (numerateur = somme des numerateurs, denominateur = somme des denominateurs)
 		if r < m.Valeur() {t[1] = m} // changer la bonne superieure
 		if r > m.Valeur() {t[0] = m} // changer la borne inferieure
 	}
