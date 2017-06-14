@@ -11,8 +11,8 @@ import (
 // http://www-irma.u-strasbg.fr/~richez/ressources/recherche/memoire_fractions_continues.pdf
 // 'Cont_red' retourne :
 // le tableau des elements de la suite continue (reduite (suite finie) de la fraction continue)
-// le tableau des elements des fractions continues correspondantes
-// la valeur majorant l'erreur d'approximation
+// le tableau des fractions continues successives (la derniere etant la meilleure approximation)
+// la valeur majorant l'erreur d'approximation inferieure ou egale a 'prec'
 //
 // p[0] = a[0]	p[1] = a[1]*a[0] + 1	et pour n>=2	p[n] = a[n]*p[n-1] + p[n-2]
 // q[0] = 1	q[1] = a[1]		et pour n>=2	q[n] = a[n]*q[n-1] + q[n-2]
