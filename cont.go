@@ -9,7 +9,7 @@ import (
 	"github.com/plb97/fqa"
 )
 // http://www-irma.u-strasbg.fr/~richez/ressources/recherche/memoire_fractions_continues.pdf
-// 'Cond_red' retourne :
+// 'Cont_red' retourne :
 // le tableau des elements de la suite continue (reduite (suite finie) de la fraction continue)
 // le tableau des elements des fractions continues correspondantes
 // la valeur majorant l'erreur d'approximation
