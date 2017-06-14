@@ -164,7 +164,7 @@ func (r *Fract_t)SubInt(i int) *Fract_t {
 func (r *Fract_t)MulInt(i int) *Fract_t {
 	return Creer(r.n * i, r.d)
 }
-// division par un entier ( i peut etre nul)
+// division par un entier (i peut etre nul)
 func (r *Fract_t)DivInt(i int) *Fract_t {
 	return Creer(r.n, r.d * i)
 }
@@ -176,7 +176,7 @@ func Det(r *Fract_t,f *Fract_t) int {
 func (r *Fract_t)Med(f *Fract_t) *Fract_t {
 	return Creer(r.n + f.n, r.d + f.d)
 }
-// verification de l'egalite de deux suites
+// verification de l'egalite de deux suites de fractions
 func Egal_s(a,b []*Fract_t) bool {
 	l := len(a)
 	if l != len(b) {return false}
