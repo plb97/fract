@@ -45,7 +45,7 @@ func Cont(f float64, prec float64) ([]*Fract_t) {
 	_, r, _ := Cont_red(f, prec)
 	return r
 }
-// Cont_elmts' retourne le tableau des au plus 'n' elements de la suite continue approchant 'f'
+// Cont_elmts' retourne le tableau des elements de la suite continue approchant 'f'
 func Cont_elmts(f float64, prec float64) ([]int) {
 	e, _, _ := Cont_red(f, prec)
 	return e
