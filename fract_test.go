@@ -232,7 +232,7 @@ func Test_fract_pgcd(t *testing.T) {
 	n, d := 51*p, 2*p
 	{
 		attendu := p
-		obtenu := pgcd(n,d)
+		obtenu := pgcd1(n,d)
 		if attendu != obtenu {
 			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
 		}
@@ -244,6 +244,92 @@ func Test_fract_pgcd(t *testing.T) {
 			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
 		}
 	}
+	{
+		attendu := p
+		obtenu := pgcd1(-n,d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := p
+		obtenu := pgcd2(-n,d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := p
+		obtenu := pgcd1(n,-d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := p
+		obtenu := pgcd2(n,-d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := p
+		obtenu := pgcd1(-n,-d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := p
+		obtenu := pgcd2(-n,-d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
 
+	{
+		attendu := n
+		obtenu := pgcd1(n,0)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := n
+		obtenu := pgcd2(n,0)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+
+	{
+		attendu := d
+		obtenu := pgcd1(0,d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := d
+		obtenu := pgcd2(0,d)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+
+	{
+		attendu := 1
+		obtenu := pgcd1(0,0)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
+	{
+		attendu := 1
+		obtenu := pgcd2(0,0)
+		if attendu != obtenu {
+			t.Errorf(test+" : attendu %v, obtenu %v", attendu, obtenu)
+		}
+	}
 }
 

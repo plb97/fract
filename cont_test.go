@@ -52,7 +52,7 @@ func Test_elmts(t *testing.T) {
 	f := math.Pi
 	fc := []int{3,7,15,1,292}
 	{
-		p := 1e-18
+		p := prec_min
 		lo := Cont_elmts(f,p)
 		n := len(lo)
 		if n > len(fc) {
@@ -77,7 +77,7 @@ func Test_prec(t *testing.T) {
 		defer func() {
 			if r := recover(); r != nil {
 				ctr++
-				attendu := "Precision invalide < '1e-18'"
+				attendu := "Precision invalide"
 				obtenu, ok := r.(string)
 				if !ok {
 					t.Errorf(test+": attendu %v != obtenu %v\n", !ok, ok)
@@ -87,7 +87,7 @@ func Test_prec(t *testing.T) {
 				}
 			}
 		}()
-		p := 1e-19
+		p := prec_min / 2
 		Cont_elmts(f,p)
 		if 1 != ctr {
 			t.Errorf(test+": attendu %v != obtenu %v\n", 1, ctr)

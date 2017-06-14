@@ -27,17 +27,17 @@ func Brocot_nums(n int) *[]int {
 	u := make([]int,m+1) // tableau de 2^n'+1 elements
 	u[0], u[1] = 0, 1 // initialisation
 	for k := 2; k <= m; k++ { // boucler
-		if 0 == k%2 { // 'k' pair
-			u[k] = u[k/2]
+		if 0 == k & 1 { // 'k' pair
+			u[k] = u[k >> 1] // k / 2
 		} else { // 'k' impair
-			u[k] = u[(k-1)/2] + u[(k+1)/2]
+			u[k] = u[(k-1) >> 1] + u[(k+1) >> 1]
 		}
 	}
-	return &u // retourne le pointeur
+	return &u // retourner le pointeur
 }
 // 'Brocot_approx' retourne les deux fractions de la suite de Brocot encadrant 'f' a la precision 'prec'
 func Brocot_approx(f, prec float64) ([2]*Fract_t) {
-	if 0 > prec {panic("Precision invalide")}
+	if prec_min > prec {panic("Precision invalide")} // 'prec_min' est empirique
 	e, r := fqa.Ent(f) // 'e' partie entiere, 'r' reste (0 <= 'r' < 1)
 	t := [2]*Fract_t{Creer(0,1), Creer(1,1),} // initialiser les fractions d'encadrement (0/1 et 1/1)
 	for i := 0; !fqa.Egal_f(t[1].Valeur(),t[0].Valeur(), prec); i++ {  // continuer tant que la precision n'est pas suffisante

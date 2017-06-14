@@ -20,7 +20,7 @@ import (
 //		p[1] = a[1]*p[0] + p[-1] = a[1]*p[0] + 1
 //		q[1] = a[1]*q[0] + q[-1] = a[1]*q[0] + 0
 func Cont_red(f float64, prec float64) ([]int, []*Fract_t, float64) {
-	if 1e-18 > prec {panic("Precision invalide < '1e-18'")} // '1e-18' est empirique
+	if prec_min > prec {panic("Precision invalide")} // 'prec_min' est empirique
 	var r, e = make([]int,0), make([]*Fract_t,0) // 'e' tableau des elements de la suite continue, 'r' tableau des fractions correspondantes
 	a, b := fqa.Ent(f) // 'a' partie entiere, 'b' reste fractionnaire 0 <= 'b' < 1
 	d := 1e0
